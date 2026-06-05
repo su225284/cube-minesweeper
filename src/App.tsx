@@ -271,6 +271,9 @@ function CellMesh({
   onRightClick,
   onChord,
 }: CellMeshProps) {
+  const longPressTimer = useRef<number | null>(null)
+  const longPressed = useRef(false)
+
   const p1 = getPosition(cell.face, cell.x, cell.y, size)
   const p2 = getPosition(cell.face, cell.x + 1, cell.y, size)
   const p3 = getPosition(cell.face, cell.x + 1, cell.y + 1, size)
@@ -340,8 +343,36 @@ function CellMesh({
     <>
       <mesh
         geometry={geometry}
+        onPointerDown={(e) => {
+          e.stopPropagation()
+          longPressed.current = false
+
+          longPressTimer.current = window.setTimeout(() => {
+            longPressed.current = true
+            onRightClick()
+          }, 500)
+        }}
+        onPointerUp={(e) => {
+          e.stopPropagation()
+
+          if (longPressTimer.current) {
+            clearTimeout(longPressTimer.current)
+            longPressTimer.current = null
+          }
+        }}
+        onPointerLeave={() => {
+          if (longPressTimer.current) {
+            clearTimeout(longPressTimer.current)
+            longPressTimer.current = null
+          }
+        }}
         onClick={(e) => {
           e.stopPropagation()
+
+          if (longPressed.current) {
+            longPressed.current = false
+            return
+          }
 
           if (opened) {
             onChord()
@@ -368,7 +399,6 @@ function CellMesh({
           }
         />
       </mesh>
-
       <lineSegments geometry={lineGeometry}>
         <lineBasicMaterial color="#777777" />
       </lineSegments>
