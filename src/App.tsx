@@ -604,8 +604,9 @@ function App() {
       <div
         style={{
           position: 'absolute',
-          top: 20,
+          top: 'max(70px, env(safe-area-inset-top))',
           left: 20,
+          right: 20,
           zIndex: 20,
           background: 'rgba(0,0,0,0.75)',
           color: 'white',
@@ -700,7 +701,7 @@ function App() {
         style={{
           position: 'absolute',
           right: 20,
-          bottom: 20,
+          bottom: 'max(120px, env(safe-area-inset-bottom))',
           zIndex: 40,
           display: 'flex',
           flexDirection: 'column',
