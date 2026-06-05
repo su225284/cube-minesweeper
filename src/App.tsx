@@ -414,7 +414,6 @@ function App() {
   const [inputMineRate, setInputMineRate] = useState(DEFAULT_MINE_RATE)
 
   const [gridSize, setGridSize] = useState(DEFAULT_SIZE)
-  const [mineRate, setMineRate] = useState(DEFAULT_MINE_RATE)
 
   const [cells, setCells] = useState<Cell[]>(() =>
     createCells(DEFAULT_SIZE, DEFAULT_MINE_RATE)
@@ -563,7 +562,6 @@ function App() {
     const nextMineRate = Math.min(0.4, Math.max(0.05, inputMineRate))
 
     setGridSize(nextSize)
-    setMineRate(nextMineRate)
     setInputGridSize(nextSize)
     setInputMineRate(nextMineRate)
 
