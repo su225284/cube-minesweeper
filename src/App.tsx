@@ -696,7 +696,46 @@ function App() {
           ))}
         </group>
       </Canvas>
+      <div
+        style={{
+          position: 'absolute',
+          right: 20,
+          bottom: 20,
+          zIndex: 40,
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 10,
+        }}
+      >
+        <button
+          onClick={() => setCameraZ((z) => Math.max(1.5, z - 0.5))}
+          style={{
+            width: 56,
+            height: 56,
+            fontSize: 28,
+            borderRadius: '50%',
+            border: 'none',
+            cursor: 'pointer',
+          }}
+        >
+          ＋
+        </button>
 
+        <button
+          onClick={() => setCameraZ((z) => Math.min(12, z + 0.5))}
+          style={{
+            width: 56,
+            height: 56,
+            fontSize: 28,
+            borderRadius: '50%',
+            border: 'none',
+            cursor: 'pointer',
+          }}
+        >
+          −
+        </button>
+      </div>
+      
       {gameOver && (
         <div
           style={{
